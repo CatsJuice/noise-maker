@@ -14,6 +14,10 @@ useHead({
 </template>
 
 <style>
+:root {
+  --primary: #efd702;
+}
+
 html, body , #__nuxt{
   height: 100vh;
   margin: 0;

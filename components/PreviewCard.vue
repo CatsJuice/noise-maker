@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const { x: mouseX, y: mouseY } = useMouse()
-const { svgBase64 } = useNoiseStore()
+const noiseStore = useNoiseStore()
 
 const highlights = ['#FF0000', '#00FF00', '#0000FF', '#FFFF00', '#00FFFF', '#FF00FF']
 const activeColor = ref(highlights[0])
@@ -42,7 +42,7 @@ const cursorStyle = computed(() => {
       <div bg="gray/20" border="~ 2 white/20" h-full w-full rounded-inherit backdrop-blur-100px />
       <!-- noise -->
       <div
-        :style="{ backgroundImage: `url('${svgBase64}')` }" absolute left-0 top-0 h-full w-full
+        :style="{ backgroundImage: `url('${noiseStore.svgBase64}')` }" absolute left-0 top-0 h-full w-full
       />
       <!-- mask -->
       <div absolute inset-0 bg-gradient="~ to-b from-transparent to-white/50 dark:to-black/50" />
