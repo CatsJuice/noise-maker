@@ -88,7 +88,11 @@ function onTrackClick(e: MouseEvent) {
     </div>
 
     <div ref="track" relative z-1 class="slider__track" w-full @click="onTrackClick">
-      <div class="slider__thumb" :style="{ width: `${percent}%` }" bg-primary relative h-full rounded-full>
+      <div
+        class="slider__thumb"
+        :style="{ width: `${percent}%` }"
+        bg-primary relative h-full rounded-full
+      >
         <div
           ref="handle"
           class="slider__handle"
@@ -114,6 +118,9 @@ function onTrackClick(e: MouseEvent) {
     transition: all 0.23s ease
     height: var(--h)
     border-radius: 8px
+  &__bg
+    border-top-right-radius: 0
+    border-bottom-right-radius: 0
 .slider--dragging .slider__handle,
 .slider__handle:hover
     width: 8px !important
@@ -121,4 +128,10 @@ function onTrackClick(e: MouseEvent) {
 
 .slider--dragging .slider__bg
   opacity: 0.7
+
+.slider__thumb
+  background-color: #C7003980
+  backdrop-filter: blur(3px) saturate(300%)
+html.dark .slider__thumb
+  background-color: #FFC30080
 </style>

@@ -37,20 +37,20 @@ const cursorStyle = computed(() => {
 </script>
 
 <template>
-  <div ref="$el" flex="~" relative h-full max-h-600px max-w-4xl w-full items-center justify-center overflow-hidden rounded-5 sm:max-h-500px>
+  <div ref="$el" class="preview-card" flex="~" relative h-full max-h-600px max-w-4xl w-full items-center justify-center overflow-hidden rounded-5 sm:max-h-500px>
     <ClientOnly>
       <!-- auto move highlight -->
       <div class="highlight" z="-1" absolute h-full w-full rounded-full transition-5000 transition-all :style="circleStyle" />
       <!-- cursor highlight -->
       <div class="cursor-highlight" :style="cursorStyle" z="1" absolute rounded-full translate-x="-1/2" translate-y="-1/2" />
       <!-- background -->
-      <div bg="gray/20" border="~ 2 white/20" h-full w-full rounded-inherit backdrop-blur-100px />
+      <div class="bg" bg="gray/20" border="~ 2 dark:white/20 black/7" h-full w-full rounded-inherit backdrop-blur-100px />
       <!-- noise -->
       <div
         :style="{ backgroundImage: `url('${noiseStore.svgBase64}')` }" absolute left-0 top-0 h-full w-full
       />
       <!-- mask -->
-      <div absolute inset-0 bg-gradient="~ to-b from-transparent to-white/50 dark:to-black/50" />
+      <div absolute inset-0 bg-gradient="~ to-b from-transparent to-white/60 dark:to-black/60" />
     </ClientOnly>
     <div absolute inset-0 z-2 cursor-none>
       <slot />
@@ -68,7 +68,14 @@ const cursorStyle = computed(() => {
   background: radial-gradient(var(--highlight) 0%, transparent 50%)
   transition: --highlight 5000ms, background 5000ms, transform 5000ms
 .cursor-highlight
-  background: red
+  background: #222
   width: 8px
   height: 8px
+
+.preview-card
+  box-shadow: 0px 5px 20px rgba(0,0,0, .05)
+html.dark .preview-card
+  box-shadow: 0px 5px 20px rgba(0,0,0, .2)
+  .cursor-highlight
+    background: red
 </style>
