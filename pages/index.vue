@@ -14,7 +14,7 @@
             </div>
           </div>
         </div>
-        <Control flex="~ 1" h-0 />
+        <Control flex="~ 1" h-0 select-none />
         <Exporter />
       </div>
       <Tools absolute right-8 top-9 h-48px />

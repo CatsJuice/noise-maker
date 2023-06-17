@@ -38,20 +38,19 @@ const cursorStyle = computed(() => {
 
 <template>
   <div ref="$el" class="preview-card" flex="~" relative h-full max-h-600px max-w-4xl w-full items-center justify-center overflow-hidden rounded-5 sm:max-h-500px>
-    <ClientOnly>
-      <!-- auto move highlight -->
-      <div class="highlight" z="-1" absolute h-full w-full rounded-full transition-5000 transition-all :style="circleStyle" />
-      <!-- cursor highlight -->
-      <div class="cursor-highlight" :style="cursorStyle" z="1" absolute rounded-full translate-x="-1/2" translate-y="-1/2" />
-      <!-- background -->
-      <div class="bg" bg="gray/20" border="~ 2 dark:white/20 black/7" h-full w-full rounded-inherit backdrop-blur-100px />
-      <!-- noise -->
-      <div
-        :style="{ backgroundImage: `url('${noiseStore.svgBase64}')` }" absolute left-0 top-0 h-full w-full
-      />
-      <!-- mask -->
-      <div absolute inset-0 bg-gradient="~ to-b from-transparent to-white/60 dark:to-black/60" />
-    </ClientOnly>
+    <!-- auto move highlight -->
+    <div class="highlight" z="-1" absolute h-full w-full rounded-full transition-5000 transition-all :style="circleStyle" />
+    <!-- cursor highlight -->
+    <div class="cursor-highlight" :style="cursorStyle" z="1" absolute rounded-full translate-x="-1/2" translate-y="-1/2" />
+    <!-- background -->
+    <div class="bg" bg="gray/20" border="~ 2 dark:white/20 black/7" h-full w-full rounded-inherit backdrop-blur-100px />
+    <!-- noise -->
+    <div
+      :style="{ backgroundImage: `url('${noiseStore.svgBase64}')` }" absolute left-0 top-0 h-full w-full
+    />
+    <!-- mask -->
+    <div absolute inset-0 bg-gradient="~ to-b from-transparent to-white/60 dark:to-black/60" />
+
     <div absolute inset-0 z-2 cursor-none>
       <slot />
     </div>

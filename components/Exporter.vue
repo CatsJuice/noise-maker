@@ -37,6 +37,11 @@ function downloadSvg() {
 </template>
 
 <style lang="sass" scoped>
+@property --deg
+  syntax: "<angle>"
+  initial-value: 145deg
+  inherits: false
+
 .export-btn
   --start-color: rgba(140, 140, 140, 0.5)
   --mid-color: rgba(140, 140, 140, 0)
@@ -45,19 +50,24 @@ function downloadSvg() {
   height: 36px
   border-width: 1px
   border-style: solid
-  border-image: linear-gradient(145deg, var(--start-color) 0%, var(--mid-color) 50%, var(--end-color) 100%) 1
+  border-image: linear-gradient(var(--deg), var(--start-color) 0%, var(--mid-color) 50%, var(--end-color) 100%) 1
   cursor: pointer
-  background: rgba(255, 255, 255, 0.2)
-  backdrop-filter: blur(12px) saturate(180%)
-  transition: all 0.23s ease
+  background: rgba(255, 255, 255, 0.04)
+  backdrop-filter: blur(7px) saturate(180%)
+  transition: all 0.23s ease, --deg 0.23s ease
   display: flex
   align-items: center
   justify-content: center
+  cursor: none
 
   &:hover
-    background: rgba(255, 255, 255, 0.3)
+    background: rgba(255, 255, 255, 0.1)
     --start-color: rgba(140, 140, 140, 1)
     --end-color:  rgba(140, 140, 140, 1)
+    --deg: 150deg
+
+  &:active
+    transform: scale(0.95)
 
   & > *
     width: 80%
