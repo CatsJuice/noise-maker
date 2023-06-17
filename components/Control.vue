@@ -1,21 +1,20 @@
 <script lang="ts" setup>
-import '~/assets/slider.css'
-
 const { controls, controlState } = useNoiseStore()
 </script>
 
 <template>
   <div>
     <div w-full flex="~ col gap-2 nowrap" justify-center text-sm>
-      <div v-for="control in controls" :key="control.key" flex="~ nowrap gap-4 items-center">
-        <div w-140px>
+      <div v-for="control in controls" :key="control.key" flex="~ nowrap gap-6 sm:gap-4 sm:items-center col sm:row">
+        <div w-140px font-500 op-90>
           {{ control.label }}:
         </div>
-        <input v-model="controlState[control.key]" class="slider" type="range" :min="control.min" :max="control.max" :step="control.step">
-
-        <div>
-          {{ controlState[control.key] }}
-        </div>
+        <BaseSlider
+          v-model="controlState[control.key]"
+          flex="~ sm:1"
+          max-w-250px w-full sm:w-0
+          :min="control.min" :max="control.max" :step="control.step"
+        />
       </div>
     </div>
   </div>

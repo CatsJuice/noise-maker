@@ -15,7 +15,11 @@ useHead({
 
 <style>
 :root {
-  --primary: #efd702;
+  --primary: #C70039;
+}
+
+html.dark {
+  --primary: #FFC300
 }
 
 html, body , #__nuxt{
