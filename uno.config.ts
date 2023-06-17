@@ -10,6 +10,11 @@ import {
 } from 'unocss'
 
 export default defineConfig({
+  theme: {
+    screens: {
+      sm: '400px',
+    },
+  },
   rules: [
     ['bg-primary', { background: 'var(--primary)' }],
   ],

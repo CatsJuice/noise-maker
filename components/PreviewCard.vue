@@ -2,20 +2,25 @@
 const { x: mouseX, y: mouseY } = useMouse()
 const noiseStore = useNoiseStore()
 
-const highlights = ['#FF0000', '#00FF00', '#0000FF', '#FFFF00', '#00FFFF', '#FF00FF']
+const highlights = ['#4BFF0C', '#FFDA0C', '#0078FF', '#FF0C64', '#00FFFF', '#FE19D4']
 const activeColor = ref(highlights[0])
-const offset = reactive({ x: 0, y: 0 })
-const cursorRef = ref<HTMLElement>()
+const offset = reactive({
+  x: (0.5 - Math.random()) * 100,
+  y: (0.5 - Math.random()) * 100,
+})
 const $el = ref<HTMLElement>()
 
 useIntervalFn(() => {
   const index = highlights.indexOf(activeColor.value)
   activeColor.value = highlights[(index + 1) % highlights.length]
 }, 5000)
-useIntervalFn(() => {
+function move() {
   offset.x = (Math.random() - 0.5) * 100
   offset.y = (Math.random() - 0.5) * 100
-}, 5000, { immediate: true })
+}
+useIntervalFn(move, 4000)
+
+onMounted(() => setTimeout(() => move(), 500))
 
 const circleStyle = computed(() => ({
   'transform': `translate(${offset.x}%, ${offset.y}%)`,
@@ -32,12 +37,12 @@ const cursorStyle = computed(() => {
 </script>
 
 <template>
-  <div ref="$el" flex="~" relative h-full max-h-500px max-w-4xl w-full items-center justify-center overflow-hidden rounded-5>
+  <div ref="$el" flex="~" relative h-full max-h-600px max-w-4xl w-full items-center justify-center overflow-hidden rounded-5 sm:max-h-500px>
     <ClientOnly>
       <!-- auto move highlight -->
-      <div class="highlight" w="1/2" h="1/2" z="-1" absolute rounded-full transition-5000 transition-all :style="circleStyle" />
+      <div class="highlight" z="-1" absolute h-full w-full rounded-full transition-5000 transition-all :style="circleStyle" />
       <!-- cursor highlight -->
-      <div ref="cursorRef" absolute :style="cursorStyle" z="-1" h-200px w-200px rounded-full bg="amber/70" translate-x="-1/2" translate-y="-1/2" />
+      <div class="cursor-highlight" :style="cursorStyle" z="1" absolute rounded-full translate-x="-1/2" translate-y="-1/2" />
       <!-- background -->
       <div bg="gray/20" border="~ 2 white/20" h-full w-full rounded-inherit backdrop-blur-100px />
       <!-- noise -->
@@ -47,7 +52,7 @@ const cursorStyle = computed(() => {
       <!-- mask -->
       <div absolute inset-0 bg-gradient="~ to-b from-transparent to-white/50 dark:to-black/50" />
     </ClientOnly>
-    <div absolute inset-0>
+    <div absolute inset-0 z-2 cursor-none>
       <slot />
     </div>
   </div>
@@ -56,9 +61,14 @@ const cursorStyle = computed(() => {
 <style lang="sass" scoped>
 @property --highlight
   syntax: '<color>'
-  initial: '#FF0000'
+  initial-value: #FF0000
   inherits: false
 .highlight
-  background-color: var(--highlight)
-  transition: --highlight 5000ms, background-color 5000ms, transform 5000ms
+  // background-color: var(--highlight)
+  background: radial-gradient(var(--highlight) 0%, transparent 50%)
+  transition: --highlight 5000ms, background 5000ms, transform 5000ms
+.cursor-highlight
+  background: red
+  width: 8px
+  height: 8px
 </style>

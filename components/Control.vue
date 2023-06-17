@@ -12,7 +12,7 @@ const { controls, controlState } = useNoiseStore()
         <BaseSlider
           v-model="controlState[control.key]"
           flex="~ sm:1"
-          max-w-250px w-full sm:w-0
+          w-full sm:max-w-250px sm:w-0
           :min="control.min" :max="control.max" :step="control.step"
         />
       </div>
