@@ -16,10 +16,12 @@ useHead({
 <style>
 :root {
   --primary: #C70039;
+  --primary50: #C7003980;
 }
 
 html.dark {
-  --primary: #FFC300
+  --primary: #FFC300;
+  --primary50: #FFC30080;
 }
 
 html, body , #__nuxt{

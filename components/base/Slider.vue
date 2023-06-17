@@ -4,6 +4,11 @@ export interface BaseSliderProps {
   min?: number
   max?: number
   step?: number
+  /**
+   * Whether to show a tooltip when dragging the slider
+   */
+  tooltip?: boolean
+  tooltipFormatter?: (value: number) => string
 }
 
 const props = withDefaults(defineProps<BaseSliderProps>(), {
@@ -101,6 +106,20 @@ function onTrackClick(e: MouseEvent) {
           bg-primary absolute left-full h-4 w-1 rounded-1px rounded-full transition-all
         />
       </div>
+
+      <ClientOnly>
+        <transition name="tooltip">
+          <div
+            v-if="tooltip && dragging"
+            :style="{ left: `${percent}%` }"
+            class="slider__tooltip"
+            left="1/2" translate-x="-1/2"
+            absolute bottom-full rounded-1 px-2 py-1 text-xs font-500 text-white
+          >
+            {{ tooltipFormatter ? tooltipFormatter(modelValue!) : modelValue }}
+          </div>
+        </transition>
+      </ClientOnly>
     </div>
   </div>
 </template>
@@ -130,8 +149,34 @@ function onTrackClick(e: MouseEvent) {
   opacity: 0.7
 
 .slider__thumb
-  background-color: #C7003980
+  background-color: var(--primary50)
   backdrop-filter: blur(3px) saturate(300%)
-html.dark .slider__thumb
-  background-color: #FFC30080
+
+// transition tooltip
+
+.slider__tooltip
+  --translateX: -50%
+  --translateY: 0px
+  bottom: calc(100% + 20px)
+  transform: translate(var(--translateX), var(--translateY))
+  background-color: var(--primary50)
+  backdrop-filter: blur(3px) saturate(300%)
+  z-index: 10
+  &::after
+    content: ""
+    position: absolute
+    width: 0
+    height: 0
+    border: 5px solid transparent
+    border-top-color: var(--primary50)
+    left: calc(50% - 5px)
+    top: 100%
+
+.tooltip-enter-active,
+.tooltip-leave-active
+  transition: all 0.23s ease
+.tooltip-enter-from,
+.tooltip-leave-to
+  opacity: 0
+  --translateY: 10px
 </style>

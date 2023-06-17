@@ -13,6 +13,7 @@ export interface NoiseControl {
   min?: number
   max?: number
   step?: number
+  formatter?: (value: number) => string
 }
 
 const controls: NoiseControl[] = [
@@ -36,6 +37,7 @@ const controls: NoiseControl[] = [
     min: 0,
     max: 1,
     step: 0.01,
+    formatter: value => `${Math.round(value * 100)}%`,
   },
   {
     key: 'width',
@@ -43,6 +45,7 @@ const controls: NoiseControl[] = [
     min: 1,
     max: 4096,
     step: 1,
+    formatter: value => `${value}px`,
   },
   {
     key: 'height',
@@ -50,6 +53,7 @@ const controls: NoiseControl[] = [
     min: 1,
     max: 4096,
     step: 1,
+    formatter: value => `${value}px`,
   },
 ]
 

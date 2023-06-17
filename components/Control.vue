@@ -11,9 +11,11 @@ const { controls, controlState } = useNoiseStore()
         </div>
         <BaseSlider
           v-model="controlState[control.key]"
+          tooltip
           flex="~ sm:1"
           w-full sm:max-w-250px sm:w-0
           :min="control.min" :max="control.max" :step="control.step"
+          :tooltip-formatter="control.formatter"
         />
       </div>
     </div>
